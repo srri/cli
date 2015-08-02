@@ -84,20 +84,22 @@ func cmdEnvGet(c *cli.Context) {
 		stdcli.Error(err)
 		return
 	}
+	if len(c.Args()) > 0 {
 
-	variable := c.Args()[0]
+		variable := c.Args()[0]
 
-	resp, err := fetchEnv(app)
+		resp, err := fetchEnv(app)
 
-	if err != nil {
-		stdcli.Error(err)
-		return
+		if err != nil {
+			stdcli.Error(err)
+			return
+		}
+
+		var env map[string]string
+		json.Unmarshal(resp, &env)
+
+		fmt.Println(env[variable])
 	}
-
-	var env map[string]string
-	json.Unmarshal(resp, &env)
-
-	fmt.Println(env[variable])
 }
 
 func cmdEnvSet(c *cli.Context) {
