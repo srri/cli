@@ -99,7 +99,7 @@ func cmdEnvGet(c *cli.Context) {
 
 		fmt.Println(env[variable])
 	} else {
-        	fmt.Println("You supplied %s arguments to convox env get, 1 is required", len(c.Args()))
+        	fmt.Printf("You supplied %d arguments to convox env get, 1 is required\n", len(c.Args()))
         }
 }
 
