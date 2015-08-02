@@ -84,8 +84,7 @@ func cmdEnvGet(c *cli.Context) {
 		stdcli.Error(err)
 		return
 	}
-	if len(c.Args()) > 0 {
-
+	if len(c.Args()) == 1 {
 		variable := c.Args()[0]
 
 		resp, err := fetchEnv(app)
@@ -99,7 +98,9 @@ func cmdEnvGet(c *cli.Context) {
 		json.Unmarshal(resp, &env)
 
 		fmt.Println(env[variable])
-	}
+	} else {
+        	fmt.Println("You supplied %s arguments to convox env get, 1 is required", len(c.Args()))
+        }
 }
 
 func cmdEnvSet(c *cli.Context) {
