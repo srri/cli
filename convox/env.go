@@ -161,16 +161,19 @@ func cmdEnvUnset(c *cli.Context) {
 		stdcli.Error(err)
 		return
 	}
+	if len(c.Args()) == 1 {
+		variable := c.Args()[0]
 
-	variable := c.Args()[0]
+		path := fmt.Sprintf("/apps/%s/environment/%s", app, variable)
 
-	path := fmt.Sprintf("/apps/%s/environment/%s", app, variable)
+		_, err = ConvoxDelete(path)
 
-	_, err = ConvoxDelete(path)
-
-	if err != nil {
-		stdcli.Error(err)
-		return
+		if err != nil {
+			stdcli.Error(err)
+			return
+		}
+	else {
+		fmt.Printf("You supplied %d arguments to convox env unset, 1 is required\n", len(c.Args()))
 	}
 }
 
